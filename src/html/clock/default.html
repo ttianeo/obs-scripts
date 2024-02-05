@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Default Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Workbench&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="clock">
+        00:00:00
+    </div>
+    <div id="date">
+        1970-01-01
+    </div>
+</body>
+
+<style>
+    body {
+        font-family: 'Workbench', sans-serif;
+        background-color: #0f0;
+        color: #fff;
+    }
+
+    #clock {
+        font-size: 6em;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    #date {
+        font-size: 3em;
+        text-align: center;
+    }
+</style>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const clock = document.getElementById('clock');
+        const date = document.getElementById('date');
+        clock.innerHTML = now.toLocaleTimeString();
+        date.innerHTML = now.toLocaleDateString();
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // get query
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) { return pair[1]; }
+        }
+        return (false);
+    }
+
+    function setStyles() {
+        const clock = document.getElementById('clock');
+        const date = document.getElementById('date');
+        const color = getQueryVariable('color');
+        const background = getQueryVariable('bg');
+        console.log(color, background);
+        if (color) {
+            clock.style.color = `#${color}`;
+            date.style.color = `#${color}`;
+        }
+        if (background) {
+            document.body.style.backgroundColor = `#${background}`;
+        }
+    }
+
+    setStyles()
+</script>
+
+</html>
